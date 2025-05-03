@@ -438,7 +438,8 @@ Based on the frequent itemsets and support/confidence values, these rules seem t
 The confidence values for the top 20 rules range from around 0.5 to 0.9, which suggests that these rules have a relatively high probability of being true. However, the support values for some of the rules are quite low, which means that these rules are based on a small number of transactions and may not be as reliable as rules based on more frequent itemsets.
 Some of the associations in the top 20 rules may seem unexpected or odd, depending on one's prior assumptions and expectations. For instance, the association between the "GREEN REGENCY TEACUP AND SAUCER" and the "PINK REGENCY TEACUP AND SAUCER" may seem counterintuitive, as one might expect customers who purchase one color to prefer the same color for their teacups and saucers. However, the association could be explained by the fact that customers who purchase one color may be more likely to be interested in the entire "Regency" collection, regardless of the specific color of the teacup and saucer.
 
- Conclusion
+** Conclusion**
+ 
 In this study, I looked at the online retail data to try to identify key business drivers and segment the client base into actionable information for improved customer relationship management.
 More specifically, using the k-means approach, I was able to isolate three key customer clusters, one of which contained 25 of the company's most valuable MVP customers.
 In order to motivate actions, I applied an RFM analysis and divided the clients into more focused groups. CRM procedures can be referenced from the interactive datatable above.
