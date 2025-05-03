@@ -1,12 +1,16 @@
 **Introduction**
+
 The practice of segmenting a client base into groups of people who are similar in particular aspects significant to marketing, such as age, gender, interests, and purchasing patterns, is known as customer segmentation.
 Customer segmentation is a strategy used by businesses to target particular, smaller groups of consumers with appropriate messaging that would encourage them to make a purchase. This strategy is based on the idea that each and every customer is unique. In order to more effectively target marketing materials at each client segment, businesses also want to obtain a deeper understanding of the preferences and demands of their customers.
 In order to segment customers into targetable groups, it is necessary to discover important differentiators that separate them. When determining customer segmentation practices, factors including a customer's demographics (age, race, religion, gender, family size, ethnicity, income, and level of education), geography (where they live and work), psychographics (social class, lifestyle, and personality traits), and behavioral (spending, consumption, usage, and desired benefits) tendencies are taken into account.
-Machine Learning Technique
+
+**Machine Learning Technique**
+
 Finding patterns in data is done using a type of machine learning algorithms called unsupervised learning. Since the input variables (X) for unsupervised algorithms are not labeled, there are no corresponding output variables provided. Unsupervised learning allows the algorithms to find intriguing data structures on their own.
 You can categorize your customers with the use of some analytics techniques. These are particularly helpful if you have a huge customer base and find it challenging to identify patterns in your customer data by simply examining transactions. The most popular is clustering, an exploratory method for datasets where correlations between various observations may be too subtle to be seen with the naked eye.
 
 **Description of dataset**
+
 Here is a brief version of the data description file.
 InvoiceNo: Invoice number. Nominal. A 6-digit integral number is uniquely assigned to each transaction. If this code starts with the letter C, it indicates a cancellation.
 StockCode: Product (item) code. Nominal. A 5-digit integral number is uniquely assigned to each distinct product.
@@ -16,7 +20,9 @@ InvoiceDate: Invoice date and time. Numeric. The day and time when a transaction
 UnitPrice: Unit price. Numeric. Product price per unit.
 CustomerID: Customer number. Nominal. A 5-digit integral number uniquely assigned to each customer.
 Country: Country name. Nominal. The name of the country where a customer resides.
-Preprocessing steps
+
+**Preprocessing steps**
+
 The necessary R libraries for the analysis's use are imported. The highcharter package, which I utilized for the visuals on the EDA component of the analysis, is one that I think merits notice.
 I cleansed the dataset as usual where it was necessary so that it would be clearer how I should proceed. Let's look at some of the data's fundamental details first.
  
@@ -57,16 +63,8 @@ Cleaning and recoding variables
 **RFM statistics**
 
 
+**Description of dataset**
 
-
-Introduction
-The practice of segmenting a client base into groups of people who are similar in particular aspects significant to marketing, such as age, gender, interests, and purchasing patterns, is known as customer segmentation.
-Customer segmentation is a strategy used by businesses to target particular, smaller groups of consumers with appropriate messaging that would encourage them to make a purchase. This strategy is based on the idea that each and every customer is unique. In order to more effectively target marketing materials at each client segment, businesses also want to obtain a deeper understanding of the preferences and demands of their customers.
-In order to segment customers into targetable groups, it is necessary to discover important differentiators that separate them. When determining customer segmentation practices, factors including a customer's demographics (age, race, religion, gender, family size, ethnicity, income, and level of education), geography (where they live and work), psychographics (social class, lifestyle, and personality traits), and behavioral (spending, consumption, usage, and desired benefits) tendencies are taken into account.
-Machine Learning Technique
-Finding patterns in data is done using a type of machine learning algorithms called unsupervised learning. Since the input variables (X) for unsupervised algorithms are not labeled, there are no corresponding output variables provided. Unsupervised learning allows the algorithms to find intriguing data structures on their own.
-You can categorize your customers with the use of some analytics techniques. These are particularly helpful if you have a huge customer base and find it challenging to identify patterns in your customer data by simply examining transactions. The most popular is clustering, an exploratory method for datasets where correlations between various observations may be too subtle to be seen with the naked eye.
-Description of dataset
 Here is a brief version of the data description file.
 InvoiceNo: Invoice number. Nominal. A 6-digit integral number is uniquely assigned to each transaction. If this code starts with the letter C, it indicates a cancellation.
 StockCode: Product (item) code. Nominal. A 5-digit integral number is uniquely assigned to each distinct product.
@@ -79,7 +77,8 @@ Country: Country name. Nominal. The name of the country where a customer resides
 Preprocessing steps
 The necessary R libraries for the analysis's use are imported. The highcharter package, which I utilized for the visuals on the EDA component of the analysis, is one that I think merits notice.
 I cleansed the dataset as usual where it was necessary so that it would be clearer how I should proceed. Let's look at some of the data's fundamental details first.
- Data Cleaning
+ 
+ **Data Cleaning**
 Checking & Dealing with missing values
 
 We can observe that the data is missing many CustomerIDs and just a very small fraction of Descriptions.
@@ -87,7 +86,8 @@ Since the dataset is sufficiently rich to have a pretty large sample to fit our 
 The NAs on the description will be swapped out for an empty string value.
 
 
-Checking & Treating Outliers
+**Checking & Treating Outliers**
+
 For reliable results, dealing with and treating outliers in the data is always crucial.
 I used the straightforward tool dlookr for data diagnosis and exploration, which I believe performs a great job of plotting valuable information to discover abnormalities and outliers in just a single line of code.
 
@@ -102,7 +102,8 @@ I will also create a new date and time separate feature from the InvoiceDate cur
 Now since I split up the date and time, I will also create month, year and hour day features to get more information in the next section
 I will also convert the date to the right date format. Making a new feature to get the day of the week
 Setting up a frame with unique descriptions for further exploration of products offered
-Visualizations
+
+**Visualizations**
 Overview of the dataset
 
 Cleaning and recoding variables
@@ -153,7 +154,7 @@ Based on the Elbow method chart we could use 3, 4, 5 or even 6 clusters based on
 
 
 
- Clusters-Visualizing
+** Clusters-Visualizing**
  
 After running several tests above, we can conclude that the most appropriate optimal number of clusters for our data set seems to be k = 3, so we will compute k-means with k = 3 to segment the customers into groups.
 ##      recency   frequency       Spent
@@ -171,7 +172,8 @@ First of all we see this extreme distribution because of the k-means disadvantag
 We have 3 demonstrable clusters, with cluster 2 containing the most valuable customers.
 So we can see that cluster 2, is our MVP customers that have generated the most revenue having Spent the most money in the products of the store. In cluster 1 we have different kind of groups who can be potential valuable customers for the business, as either they purchase a lot or have made a transaction recently signaling new opportunities.
 
-RFM analysis
+**RFM analysis**
+
 To find our most valuable customers based on RFM analysis I will also use the rfm package, which based on the input will give automate RFM scores for our customers.
 According to the Pareto principle, 20% of the customers (the vital few) contribute more to the revenue of the company than the rest. It argues that 80 percent of effects can be traced back to as few as 20% of all causes — these 20% of causes are vital, and the remaining 20% of effects is then naturally dispersed to be mapped with the remaining 80% causes — they are trivial numerous. These 20% are the high-value, important consumers that the company would like to keep.
 Creation of interactive customer data table with RFM scores, to observe values
@@ -181,7 +183,8 @@ However, a point that needs to be made is that for the calculation of the total 
 Also the data we have contains transactions of just over one year of business, which is not that much to accurately distinguish the customer base appropriately.
 Now I will create customer segments based on the image below
 
-Segments
+**Segments**
+
 We will Segment our customers based on this proposed image.
 Now we have our customer categories/segments ready to differentiate them and act
 Lets first plot the number of customers that we have in each segment.
@@ -212,11 +215,13 @@ Customers. At second place comes a tie with Loyal Customers and customers At Ris
 Lets have a table that can distinguish each of the stores customers so that they can treat them accordingly and focus on the vital customers that will enforce the prosperity of the business.
 
 The generated "Clusters of Customers" plot shows the distribution of the 5 clusters. A sensible interpretation for the online customer segments can be:
-Cluster 1. Customers with medium annual income and medium annual spend
-Cluster 2. Customers with high annual income and high annual spend
-Cluster 3. Customers with low annual income and low annual spend
-Cluster 4. Customers with high annual income but low annual spend
-Cluster 5. Customers low annual income but high annual spend
+
+-Cluster 1. Customers with medium annual income and medium annual spend
+-Cluster 2. Customers with high annual income and high annual spend
+-Cluster 3. Customers with low annual income and low annual spend
+-Cluster 4. Customers with high annual income but low annual spend
+-Cluster 5. Customers low annual income but high annual spend
+
 Having a better understanding of the customers segments, a company could make better and more informed decisions. An example, there are customers with high annual income but low spending score. A more strategic and targeted marketing approach could lift their interest and make them become higher spenders. The focus should also be on the "loyal" customers and maintain their satisfaction.
 We have thus seen, how we could arrive at meaningful insights and recommendations by using clustering algorithms to generate customer segments. For the sake of simplicity, the dataset used only 2 variables — income and spend. In a typical business scenario, there could be several variables which could possibly generate much more realistic and business-specific insights.
 Association Rule Mining
@@ -254,7 +259,8 @@ Based on the frequent itemsets and support/confidence values, these rules seem t
 The confidence values for the top 20 rules range from around 0.5 to 0.9, which suggests that these rules have a relatively high probability of being true. However, the support values for some of the rules are quite low, which means that these rules are based on a small number of transactions and may not be as reliable as rules based on more frequent itemsets.
 Some of the associations in the top 20 rules may seem unexpected or odd, depending on one's prior assumptions and expectations. For instance, the association between the "GREEN REGENCY TEACUP AND SAUCER" and the "PINK REGENCY TEACUP AND SAUCER" may seem counterintuitive, as one might expect customers who purchase one color to prefer the same color for their teacups and saucers. However, the association could be explained by the fact that customers who purchase one color may be more likely to be interested in the entire "Regency" collection, regardless of the specific color of the teacup and saucer.
 
- Conclusion
+** Conclusion**
+
 In this study, I looked at the online retail data to try to identify key business drivers and segment the client base into actionable information for improved customer relationship management.
 More specifically, using the k-means approach, I was able to isolate three key customer clusters, one of which contained 25 of the company's most valuable MVP customers.
 In order to motivate actions, I applied an RFM analysis and divided the clients into more focused groups. CRM procedures can be referenced from the interactive datatable above.
@@ -262,7 +268,9 @@ Other key differentiators for more in depth division of customers into appropria
 Demographics (age, race, religion, gender, family size, ethnicity, income, education level)
 Psychographic (social class, lifestyle and personality characteristics)
 Geography (more specific locations)
-K-means clustering algorithm & Disadvantages:
+
+**K-means clustering algorithm & Disadvantages:**
+
 K-means clustering is a simple and efficient method. Additionally, it can handle large data sets with ease. On the other hand, there are a few drawbacks to the k-means approach. The disadvantage of K-means clustering is that it requires us to predetermine the number of groups. K-means also has the drawback of being sensitive to outliers, which might lead to inconsistent findings if the data is rearranged.
 RFM analysis is comparable. In the end, a company's ideology and culture would determine the method it would choose to segment its consumer base. 
 Additionally, the distinctive nature of the goods or services they offer would have a significant impact on the strategy they would like to employ, as well as how they would classify their clients and where they would like to concentrate their efforts in order to build stronger client relationships and, ultimately, a lucrative future.
