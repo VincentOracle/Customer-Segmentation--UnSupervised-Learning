@@ -1,0 +1,273 @@
+---
+title: "Customer Segmentation using RFM Analysis (R)"
+
+output:
+  html_document:
+    fig_height: 4
+    fig_width: 7
+---
+
+"RFM is a method used for analyzing customer value".
+
+RFM stands for the three dimensions:
+
+* Recency – How recently did the customer purchase?
+* Frequency – How often do they purchase?
+* Monetary Value – How much do they spend?
+
+The resulting segments can be ordered from most valuable (highest recency, frequency, and value) to least valuable (lowest recency, frequency, and value). Identifying the most valuable RFM segments can capitalize on chance relationships in the data used for this analysis.
+```{r, message=FALSE, warning=FALSE, results='hide'}
+library(data.table)
+library(dplyr)
+library(ggplot2)
+#library(stringr)
+#library(DT)
+library(tidyr)
+library(knitr)
+library(rmarkdown)
+```
+
+### Load Dataset
+First, Lets we Load & Examine Dataset
+```{r, results='markup', message=FALSE}
+df_data <- read.csv('C:/Users/FELIX/Desktop/Customer Segmentation 2/OnlineRetail_randomized_14.csv')
+glimpse(df_data)
+```
+
+### Data Cleaning
+Delete all negative Quantity and Price. We also need to delete NA customer ID
+```{r}
+df_data <- df_data %>% 
+  mutate(Quantity = replace(Quantity, Quantity<=0, NA),
+         UnitPrice = replace(UnitPrice, UnitPrice<=0, NA))
+
+df_data <- df_data %>%
+  drop_na()
+
+```
+### Recode variables
+We should do some recoding and convert character variables to factors.
+```{r}
+df_data <- df_data %>% 
+  mutate(InvoiceNo=as.factor(InvoiceNo), StockCode=as.factor(StockCode), 
+         InvoiceDate=as.Date(InvoiceDate, '%m/%d/%Y %H:%M'), CustomerID=as.factor(CustomerID), 
+         Country=as.factor(Country))
+
+df_data <- df_data %>% 
+  mutate(total_dolar = Quantity*UnitPrice)
+
+glimpse(df_data)
+```
+
+### Calculate RFM {.tabset}
+To implement the RFM analysis, we need to further process the data set in by the following steps:
+
+1. Find the most recent date for each ID and calculate the days to the now or some other date, to get the Recency data
+2. Calculate the quantity of translations of a customer, to get the Frequency data
+3. Sum the amount of money a customer spent and divide it by Frequency, to get the amount per transaction on average, that is the Monetary data.
+
+```{r results='hold'}
+
+df_RFM <- df_data %>% 
+  group_by(CustomerID) %>% 
+  summarise(recency=as.numeric(as.Date("2012-01-01")-max(InvoiceDate)),
+            frequenci=n_distinct(InvoiceNo), monitery= sum(total_dolar)/n_distinct(InvoiceNo)) 
+
+summary(df_RFM)
+
+kable(head(df_RFM))
+```
+
+#### Recency
+Recency – How recently did the customer purchase?
+```{r} 
+hist(df_RFM$recency)
+```
+
+#### Frequency
+Frequency – How often do they purchase?
+```{r} 
+hist(df_RFM$frequenci, breaks = 50)
+```
+
+#### Monetary
+Monetary Value – How much do they spend?
+```{r} 
+hist(df_RFM$monitery, breaks = 50)
+```
+Becouse the data is realy skewed, we use log scale to normalize
+```{r}
+df_RFM$monitery <- log(df_RFM$monitery)
+hist(df_RFM$monitery)
+```
+
+### Clustering
+```{r}
+df_RFM2 <- df_RFM
+row.names(df_RFM2) <- df_RFM2$CustomerID
+df_RFM2$CustomerID <- NULL
+
+df_RFM2 <- scale(df_RFM2)
+summary(df_RFM2)
+```
+
+```{r}
+d <- dist(df_RFM2)
+c <- hclust(d, method = 'ward.D2')
+
+plot(c)
+```
+
+#### Cut
+```{r}
+members <- cutree(c,k = 8)
+
+members[1:5]
+table(members)
+
+aggregate(df_RFM[,2:4], by=list(members), mean)
+
+```
+K-Means
+K-means clustering is an unsupervised machine learning algorithm for clustering ‘n’ observations into ‘k’ clusters where k is predefined or user-defined constant. The main idea is to define k centroids, one for each cluster.
+
+The K-Means algorithm involves:
+Choosing the number of clusters "k".
+Randomly assign each point to a cluster
+Until clusters stop changing, repeat the following:
+For each cluster, compute the cluster centroid by taking the mean vector of points in the cluster.
+Assign each data point to the cluster for which the centroid is the closest.
+Two things are very important in K means, the first is to scale the variables before clustering the data *, and second is to look at a scatter plot or a data table to estimate the number of cluster centers to set for the k parameter in the model.
+Note: Scaling is necessary when a distance between attributes is not sensible(i.e distance between Age and Height; different metrics are important too!). On the other hand, if you have attributes with a well-defined meaning(e.g. latitude and longitude) then you should not scale your data, because this will cause distortion.
+
+Our hypothesis and the answer we are trying to give using k-means is that there is an intuition that customers can be grouped (clustered) according to their spending score given their income. My null hypothesis (which I am trying to disprove) is that there are no groups(clusters) of customers based on these.
+```{r}
+## SAVE THE VARIABLES OF INTEREST
+Kdata <- df_data[,c(4,6)]
+```
+Determine the number of clusters using the Elbow approach
+```{r}
+## K estimation using Elbow approach
+tot.withinss <- vector("numeric", length = 10)
+for (i in 1:10){
+    kDet <- kmeans(Kdata, i)
+    tot.withinss[i] <- kDet$tot.withinss
+}
+
+ggplot(as.data.frame(tot.withinss), aes(x = seq(1,10), y = tot.withinss)) + 
+    geom_point(col = "#F8766D") +    
+    geom_line(col = "#F8766D") + 
+    theme(axis.title.x.bottom = element_blank()) +
+    ylab("Within-cluster Sum of Squares") +
+    xlab("Number of Clusters") +
+    ggtitle("Elbow K Estimation")
+```
+It can be seen from the graph above that a reasonable selection for the K value would be the k = 5. Hence, we are going to create 5 clusters to generate our segments.
+```{r}
+## CLUSTER THE DATA
+customerClusters <- kmeans(Kdata, 5)
+customerClusters
+```
+
+
+```{r}
+## VISULIAzE THE CLUSTERS
+ggplot(Kdata, aes(x =  Quantity, y = UnitPrice)) + 
+    geom_point(stat = "identity", aes(color = as.factor(customerClusters$cluster))) +
+    scale_color_discrete(name=" ",
+                         breaks=c("1", "2", "3", "4", "5"),
+                         labels=c("Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4", "Cluster 5")) +
+    ggtitle("Online Customer Segmens", subtitle = "K-means Clustering")
+```
+
+
+
+The generated "Clusters of Customers" plot shows the distribution of the 5 clusters. A sensible interpretation for the online customer segments can be:
+
+Cluster 1. Customers with medium annual income and medium annual spend
+Cluster 2. Customers with high annual income and high annual spend
+Cluster 3. Customers with low annual income and low annual spend
+Cluster 4. Customers with high annual income but low annual spend
+Cluster 5. Customers low annual income but high annual spend
+
+Having a better understanding of the customers segments, a company could make better and more informed decisions. An example, there are customers with high annual income but low spending score. A more strategic and targeted marketing approach could lift their interest and make them become higher spenders. The focus should also be on the "loyal" customers and maintain their satisfaction.
+
+We have thus seen, how we could arrive at meaningful insights and recommendations by using clustering algorithms to generate customer segments. For the sake of simplicity, the dataset used only 2 variables — income and spend. In a typical business scenario, there could be several variables which could possibly generate much more realistic and business-specific insights.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
