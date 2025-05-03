@@ -112,7 +112,7 @@ Cleaning and recoding variables
 
 
 
-RFM statistics
+**RFM statistics**
 
 
 
@@ -259,7 +259,7 @@ Based on the frequent itemsets and support/confidence values, these rules seem t
 The confidence values for the top 20 rules range from around 0.5 to 0.9, which suggests that these rules have a relatively high probability of being true. However, the support values for some of the rules are quite low, which means that these rules are based on a small number of transactions and may not be as reliable as rules based on more frequent itemsets.
 Some of the associations in the top 20 rules may seem unexpected or odd, depending on one's prior assumptions and expectations. For instance, the association between the "GREEN REGENCY TEACUP AND SAUCER" and the "PINK REGENCY TEACUP AND SAUCER" may seem counterintuitive, as one might expect customers who purchase one color to prefer the same color for their teacups and saucers. However, the association could be explained by the fact that customers who purchase one color may be more likely to be interested in the entire "Regency" collection, regardless of the specific color of the teacup and saucer.
 
-** Conclusion**
+**Conclusion**
 
 In this study, I looked at the online retail data to try to identify key business drivers and segment the client base into actionable information for improved customer relationship management.
 More specifically, using the k-means approach, I was able to isolate three key customer clusters, one of which contained 25 of the company's most valuable MVP customers.
@@ -292,20 +292,22 @@ Additionally, the distinctive nature of the goods or services they offer would h
 
 
 **References**
-Usama, M., Qadir, J., Raza, A., Arif, H., Yau, K. L. A., Elkhatib, Y., ... & Al-Fuqaha, A. (2019). Unsupervised machine learning for networking: Techniques, applications and research challenges. IEEE access, 7, 65579-65615.
+
+1) Usama, M., Qadir, J., Raza, A., Arif, H., Yau, K. L. A., Elkhatib, Y., ... & Al-Fuqaha, A. (2019). Unsupervised machine learning for networking: Techniques, applications and research challenges. IEEE access, 7, 65579-65615.
 Hahne, F., Huber, W., Gentleman, R., Falcon, S., Gentleman, R., & Carey, V. J. (2008). Unsupervised machine learning. Bioconductor case studies, 137-157.
 Alloghani, M., Al-Jumeily, D., Mustafina, J., Hussain, A., & Aljaaf, A. J. (2020). A systematic review on supervised and unsupervised machine learning algorithms for data science. Supervised and unsupervised learning for data science, 3-21.
 Kassambara, A. (2017). Practical guide to cluster analysis in R: Unsupervised machine learning (Vol. 1). Sthda.
 Bhavsar, H., & Ganatra, A. (2012). A comparative study of training algorithms for supervised machine learning. International Journal of Soft Computing and Engineering (IJSCE), 2(4), 2231-2307.
 
 
-The most basic definition of the clustering problem is the challenge of finding homogeneous groupings of data points in a given data collection.
+
+2) The most basic definition of the clustering problem is the challenge of finding homogeneous groupings of data points in a given data collection.
 Any clustering method seeks to minimize the gap between data points within a cluster in relation to the gap between two clusters. In other words, people within the same group tend to be relatively similar, whereas people within different groups tend to be highly different.
 The K-means clustering algorithm is one of the most well-known and extensively studied clustering techniques. I'm using it to cluster the consumers as a result.
 
 
 
-RFM: Recency, Frequency, Monetary Value: RFM analysis is a prominent client segmentation and identification tool in database marketing. It is crucial, especially in the retail industry. RFM assigns a score to each consumer based on three elements.
+3) RFM: Recency, Frequency, Monetary Value: RFM analysis is a prominent client segmentation and identification tool in database marketing. It is crucial, especially in the retail industry. RFM assigns a score to each consumer based on three elements.
 Recency: It refers to the number of days before the reference date when a customer made the last purchase. The lesser the value of recency, the higher is the customer visit to a store.
 Frequency: It is the period between two subsequent purchases of a customer. The higher the value of Frequency, the more is the customer visit to the company.
 Monetary: This refers to the amount of money a customer spends during a specific period. The higher the value, the more is the profit generated to the company.
@@ -465,10 +467,13 @@ Additionally, the distinctive nature of the goods or services they offer would h
 
 
 
-References
-Usama, M., Qadir, J., Raza, A., Arif, H., Yau, K. L. A., Elkhatib, Y., ... & Al-Fuqaha, A. (2019). Unsupervised machine learning for networking: Techniques, applications and research challenges. IEEE access, 7, 65579-65615.
-Hahne, F., Huber, W., Gentleman, R., Falcon, S., Gentleman, R., & Carey, V. J. (2008). Unsupervised machine learning. Bioconductor case studies, 137-157.
+**References**
+
+1) Usama, M., Qadir, J., Raza, A., Arif, H., Yau, K. L. A., Elkhatib, Y., ... & Al-Fuqaha, A. (2019). Unsupervised machine learning for networking: Techniques, applications and research challenges. IEEE access, 7, 65579-65615.
+
+2) Hahne, F., Huber, W., Gentleman, R., Falcon, S., Gentleman, R., & Carey, V. J. (2008). Unsupervised machine learning. Bioconductor case studies, 137-157.
 Alloghani, M., Al-Jumeily, D., Mustafina, J., Hussain, A., & Aljaaf, A. J. (2020). A systematic review on supervised and unsupervised machine learning algorithms for data science. Supervised and unsupervised learning for data science, 3-21.
-Kassambara, A. (2017). Practical guide to cluster analysis in R: Unsupervised machine learning (Vol. 1). Sthda.
+
+3) Kassambara, A. (2017). Practical guide to cluster analysis in R: Unsupervised machine learning (Vol. 1). Sthda.
 Bhavsar, H., & Ganatra, A. (2012). A comparative study of training algorithms for supervised machine learning. International Journal of Soft Computing and Engineering (IJSCE), 2(4), 2231-2307.
 
