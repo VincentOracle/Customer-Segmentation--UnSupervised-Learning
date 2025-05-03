@@ -154,7 +154,7 @@ Based on the Elbow method chart we could use 3, 4, 5 or even 6 clusters based on
 
 
 
-** Clusters-Visualizing**
+**Clusters-Visualizing**
  
 After running several tests above, we can conclude that the most appropriate optimal number of clusters for our data set seems to be k = 3, so we will compute k-means with k = 3 to segment the customers into groups.
 ##      recency   frequency       Spent
@@ -337,7 +337,7 @@ Based on the Elbow method chart we could use 3, 4, 5 or even 6 clusters based on
 
 
 
- Clusters-Visualizing
+**Clusters-Visualizing**
  
 After running several tests above, we can conclude that the most appropriate optimal number of clusters for our data set seems to be k = 3, so we will compute k-means with k = 3 to segment the customers into groups.
 ##      recency   frequency       Spent
@@ -355,7 +355,8 @@ First of all we see this extreme distribution because of the k-means disadvantag
 We have 3 demonstrable clusters, with cluster 2 containing the most valuable customers.
 So we can see that cluster 2, is our MVP customers that have generated the most revenue having Spent the most money in the products of the store. In cluster 1 we have different kind of groups who can be potential valuable customers for the business, as either they purchase a lot or have made a transaction recently signaling new opportunities.
 
-RFM analysis
+**RFM analysis**
+
 To find our most valuable customers based on RFM analysis I will also use the rfm package, which based on the input will give automate RFM scores for our customers.
 According to the Pareto principle, 20% of the customers (the vital few) contribute more to the revenue of the company than the rest. It argues that 80 percent of effects can be traced back to as few as 20% of all causes — these 20% of causes are vital, and the remaining 20% of effects is then naturally dispersed to be mapped with the remaining 80% causes — they are trivial numerous. These 20% are the high-value, important consumers that the company would like to keep.
 Creation of interactive customer data table with RFM scores, to observe values
@@ -365,7 +366,7 @@ However, a point that needs to be made is that for the calculation of the total 
 Also the data we have contains transactions of just over one year of business, which is not that much to accurately distinguish the customer base appropriately.
 Now I will create customer segments based on the image below
 
-Segments
+**Segments**
 We will Segment our customers based on this proposed image.
 Now we have our customer categories/segments ready to differentiate them and act
 Lets first plot the number of customers that we have in each segment.
@@ -438,7 +439,7 @@ Based on the frequent itemsets and support/confidence values, these rules seem t
 The confidence values for the top 20 rules range from around 0.5 to 0.9, which suggests that these rules have a relatively high probability of being true. However, the support values for some of the rules are quite low, which means that these rules are based on a small number of transactions and may not be as reliable as rules based on more frequent itemsets.
 Some of the associations in the top 20 rules may seem unexpected or odd, depending on one's prior assumptions and expectations. For instance, the association between the "GREEN REGENCY TEACUP AND SAUCER" and the "PINK REGENCY TEACUP AND SAUCER" may seem counterintuitive, as one might expect customers who purchase one color to prefer the same color for their teacups and saucers. However, the association could be explained by the fact that customers who purchase one color may be more likely to be interested in the entire "Regency" collection, regardless of the specific color of the teacup and saucer.
 
-** Conclusion**
+**Conclusion**
  
 In this study, I looked at the online retail data to try to identify key business drivers and segment the client base into actionable information for improved customer relationship management.
 More specifically, using the k-means approach, I was able to isolate three key customer clusters, one of which contained 25 of the company's most valuable MVP customers.
